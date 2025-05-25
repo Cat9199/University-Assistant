@@ -2,11 +2,7 @@
 
 {% block title %}المحادثة مع المساعد الذكي{% endblock %}
 
-{% block hide_footer %}true{% endblock %}
-{% block hide_nav %}true{% endblock %}
-
-{% block content %}
-
+{% block styles %}
 <style>
     body {
         overflow: hidden;
@@ -618,8 +614,12 @@
         }
     }
 </style>
+{% endblock %}
 
+{% block hide_footer %}true{% endblock %}
+{% block hide_nav %}true{% endblock %}
 
+{% block content %}
 <div class="chat-container">
     <div class="chat-background"></div>
     <div class="chat-header">
@@ -661,43 +661,31 @@
             <div class="typing-dot"></div>
         </div>
     </div>
+    
     <div class="input-container">
-    <!-- Quick questions -->
-    <div class="quick-questions">
-        <div class="quick-question" onclick="setQuickQuestion('ما هي أقسام كلية التربية النوعية؟')">
-            <i class="far fa-building ml-1"></i>
-            أقسام الكلية
+        <!-- Quick questions -->
+        <div class="quick-questions">
+            <div class="quick-question" onclick="setQuickQuestion('ما هي مواعيد محاضرات مادة البرمجة؟')">
+                <i class="far fa-clock ml-1"></i>
+                مواعيد محاضرات البرمجة
+            </div>
+            <div class="quick-question" onclick="setQuickQuestion('من هو الدكتور المسؤول عن مادة الرياضيات؟')">
+                <i class="far fa-user ml-1"></i>
+                الدكتور المسؤول عن الرياضيات
+            </div>
+            <div class="quick-question" onclick="setQuickQuestion('ما هي متطلبات التخرج من قسم علوم الحاسب؟')">
+                <i class="far fa-file-alt ml-1"></i>
+                متطلبات تخرج علوم الحاسب
+            </div>
+            <div class="quick-question" onclick="setQuickQuestion('كيف أتواصل مع الدكتور أحمد؟')">
+                <i class="far fa-envelope ml-1"></i>
+                التواصل مع د. أحمد
+            </div>
+            <div class="quick-question" onclick="setQuickQuestion('ما هي المقررات المتاحة في الفصل الصيفي؟')">
+                <i class="far fa-calendar ml-1"></i>
+                مقررات الفصل الصيفي
+            </div>
         </div>
-        <div class="quick-question" onclick="setQuickQuestion('كيف أتواصل مع د. أمل كرم خليفة رئيس قسم تكنولوجيا التعليم؟')">
-            <i class="far fa-envelope ml-1"></i>
-            التواصل مع رئيس قسم التكنولوجيا
-        </div>
-        <div class="quick-question" onclick="setQuickQuestion('ما هي شروط القبول في قسم التربية الفنية؟')">
-            <i class="far fa-file-alt ml-1"></i>
-            شروط القبول بالتربية الفنية
-        </div>
-        <div class="quick-question" onclick="setQuickQuestion('ما هي المقررات الدراسية في قسم الاقتصاد المنزلي؟')">
-            <i class="far fa-book ml-1"></i>
-            مقررات الاقتصاد المنزلي
-        </div>
-        <div class="quick-question" onclick="setQuickQuestion('أين يقع مبنى الكلية الجديد؟')">
-            <i class="far fa-map-marker-alt ml-1"></i>
-            موقع الكلية
-        </div>
-        <div class="quick-question" onclick="setQuickQuestion('ما هي الفرص الوظيفية لخريجي قسم التربية الموسيقية؟')">
-            <i class="far fa-briefcase ml-1"></i>
-            فرص عمل خريجي الموسيقية
-        </div>
-        <div class="quick-question" onclick="setQuickQuestion('كيف أتقدم لامتحان القدرات للأقسام الفنية؟')">
-            <i class="far fa-clipboard-list ml-1"></i>
-            امتحان القدرات
-        </div>
-        <div class="quick-question" onclick="setQuickQuestion('ما هو رقم هاتف الكلية؟')">
-            <i class="far fa-phone ml-1"></i>
-            رقم هاتف الكلية
-        </div>
-    </div>
-</div>
         
         <!-- Input form -->
         <form id="chatForm">

@@ -2,107 +2,22 @@
 
 {% block title %}المساعد الذكي للجامعة - الصفحة الرئيسية{% endblock %}
 
-{% block styles %}
 <style>
-    /* Simple hero section with clean gradient */
-    .hero-section {
-        background: linear-gradient(to bottom, #2563eb, #1e40af);
-        min-height: 70vh;
-        position: relative;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
+    /* Animation for elements */
+    .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
     }
     
-    /* Simple subtle pattern for background */
-    .hero-pattern {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.05;
-        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    .animate-fade-in {
+        animation: fadeIn 1s ease-out forwards;
     }
     
-    /* Clean university logo styling */
-    .university-logo {
-        max-width: 150px;
-        margin-bottom: 1.5rem;
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
-    
-    /* Simple button styling */
-    .btn-primary-simple {
-        background-color: #ffffff;
-        color: #2563eb;
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.5rem;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    
-    .btn-primary-simple:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-    }
-    
-    .btn-secondary-simple {
-        background-color: transparent;
-        color: #ffffff;
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.5rem;
-        font-weight: 600;
-        border: 1px solid rgba(255, 255, 255, 0.5);
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-    }
-    
-    .btn-secondary-simple:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        border-color: #ffffff;
-    }
-    
-    /* Simple feature card */
-    .feature-card-simple {
-        background-color: #ffffff;
-        border-radius: 0.5rem;
-        padding: 1.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-        height: 100%;
-        border-top: 3px solid #2563eb;
-    }
-    
-    .feature-card-simple:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .feature-icon-simple {
-        width: 50px;
-        height: 50px;
-        background-color: #eff6ff;
-        border-radius: 0.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1rem;
-        color: #2563eb;
-    }
-    
-    /* Simple step card */
-    .step-card-simple {
-        background-color: #ffffff;
-        border-radius: 0.5rem;
-        padding: 1.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-        position: relative;
-        z-index: 1;
-    }
+
     
     .step-number-simple {
         background-color: #2563eb;
@@ -122,82 +37,314 @@
         background-color: #eff6ff;
     }
 </style>
-{% endblock %}
 
 {% block content %}
-<!-- Hero Section - Simple and Clean -->
-<section class="hero-section">
-    <div class="hero-pattern"></div>
+<!-- Hero Section - Modern and Professional -->
+<section class="pt-20 pb-24 bg-gradient-to-br from-uni-blue-800 to-uni-blue-900 text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 overflow-hidden opacity-10">
+        <div class="absolute -right-10 top-10 w-40 h-40 rounded-full bg-uni-teal-600"></div>
+        <div class="absolute left-10 bottom-20 w-60 h-60 rounded-full bg-uni-orange-500"></div>
+        <div class="absolute right-1/4 bottom-5 w-20 h-20 rounded-full bg-uni-blue-400"></div>
+        <svg class="absolute left-0 top-0 h-full opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0,0 L100,0 L100,100 Z" fill="currentColor"></path>
+        </svg>
+    </div>
     
-    <div class="container mx-auto px-4 py-16">
-        <div class="flex flex-col md:flex-row items-center">
-            <!-- Left content with logo and text -->
-            <div class="md:w-1/2 text-center md:text-right">
-                <!-- University Logo - Not rounded -->
-                <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3rdEacqbMCw1dnwLY89oMTJvz1kMw5dNhyA&s" 
-                     alt="شعار الجامعة" 
-                     class="university-logo mx-auto md:mr-0 md:ml-auto"> -->
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center">
+            <!-- Text Content -->
+            <div class="w-full lg:w-1/2 text-center lg:text-right animate-on-scroll">
+                <div class="mb-6">
+                    <img src="https://spedu.alexu.edu.eg/spedu/assets/img/alexu_logo.svg" 
+                         alt="شعار جامعة الإسكندرية" 
+                         class="h-16 mx-auto lg:mr-0 lg:ml-auto">
+                </div>
                 
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-                    المساعد الذكي للجامعة
+                <h1 class="text-4xl lg:text-5xl font-bold mb-6">
+                    المساعد الذكي <span class="text-uni-teal-400">لكلية التربية النوعية</span>
                 </h1>
                 
-                <p class="text-white text-opacity-90 text-lg mb-8 max-w-lg mx-auto md:mr-0 md:ml-auto">
+                <p class="text-xl text-gray-200 mb-8 max-w-lg mx-auto lg:mr-0 lg:ml-auto">
                     منصة ذكية تستخدم تقنيات الذكاء الاصطناعي للإجابة على استفساراتك
-                    حول الجامعة والمقررات الدراسية بشكل فوري ودقيق
+                    حول الأقسام والمقررات الدراسية بشكل فوري ودقيق
                 </p>
                 
-                <div class="flex flex-wrap gap-4 justify-center md:justify-end">
-                    <a href="{{ url_for('main.chat') }}" class="btn-primary-simple">
+                <div class="flex flex-wrap gap-4 justify-center lg:justify-end">
+                    <a href="{{ url_for('main.chat') }}" class="bg-white hover:bg-gray-100 text-uni-blue-800 py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 font-bold flex items-center">
                         <i class="fas fa-comments ml-2"></i>
                         <span>ابدأ محادثة الآن</span>
                     </a>
                     
-                    <a href="{{ url_for('main.about') }}" class="btn-secondary-simple">
+                    <a href="{{ url_for('main.about') }}" class="bg-transparent border-2 border-white hover:bg-white/10 text-white py-3 px-6 rounded-lg transition-all duration-300 flex items-center">
                         <i class="fas fa-info-circle ml-2"></i>
                         <span>اعرف المزيد</span>
                     </a>
                 </div>
             </div>
             
-            <!-- Right content with simple illustration -->
-            <div class="md:w-1/2 mt-10 md:mt-0">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3rdEacqbMCw1dnwLY89oMTJvz1kMw5dNhyA&s" 
-                     alt="المساعد الذكي للجامعة" 
-                     class="w-full max-w-md mx-auto rounded-lg shadow-lg">
+            <!-- Hero Image -->
+            <div class="w-full lg:w-1/2 mt-10 lg:mt-0 animate-on-scroll">
+                <div class="relative">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-uni-teal-600 rounded-full opacity-20 blur-2xl"></div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-uni-orange-500 rounded-full opacity-20 blur-2xl"></div>
+                    
+                    <img src="https://source.unsplash.com/e8YFkjN2CzY/800x600" 
+                         alt="طلاب في الجامعة" 
+                         class="w-full rounded-lg shadow-2xl border-4 border-white/10">
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Features Section - Simple and Clean -->
+<!-- Quick Stats Section -->
+<section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <!-- Stat 1: Departments -->
+            <div class="bg-uni-blue-50 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-all duration-300 border-b-4 border-uni-blue-600">
+                <div class="text-uni-blue-600 text-4xl mb-3">
+                    <i class="fas fa-building"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-800">5</h3>
+                <p class="text-gray-600">أقسام أكاديمية</p>
+            </div>
+            
+            <!-- Stat 2: Founded Year -->
+            <div class="bg-uni-teal-50 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-all duration-300 border-b-4 border-uni-teal-600">
+                <div class="text-uni-teal-600 text-4xl mb-3">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-800">1988</h3>
+                <p class="text-gray-600">سنة التأسيس</p>
+            </div>
+            
+            <!-- Stat 3: Students -->
+            <div class="bg-uni-orange-50 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-all duration-300 border-b-4 border-uni-orange-500">
+                <div class="text-uni-orange-500 text-4xl mb-3">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-800">3000+</h3>
+                <p class="text-gray-600">طالب وطالبة</p>
+            </div>
+            
+            <!-- Stat 4: Faculty -->
+            <div class="bg-purple-50 rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-all duration-300 border-b-4 border-purple-600">
+                <div class="text-purple-600 text-4xl mb-3">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-gray-800">150+</h3>
+                <p class="text-gray-600">أستاذ وموظف</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Departments Section -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">الأقسام الأكاديمية</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">تضم كلية التربية النوعية خمسة أقسام متخصصة تقدم برامج تعليمية متميزة تجمع بين النظرية والتطبيق</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Department 1: Educational Technology -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                <div class="h-40 bg-gradient-to-r from-uni-blue-800 to-uni-blue-600 relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-laptop-code text-6xl text-white opacity-25"></i>
+                    </div>
+                    <div class="absolute inset-0 flex items-end p-6">
+                        <h3 class="text-xl font-bold text-white">قسم تكنولوجيا التعليم</h3>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">يركز على تطوير الوسائل التعليمية والبرمجيات والتصوير واستخدام التكنولوجيا في التعليم</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-uni-blue-100 text-uni-blue-800 text-xs py-1 px-2 rounded-full">وسائط تعليمية</span>
+                        <span class="bg-uni-blue-100 text-uni-blue-800 text-xs py-1 px-2 rounded-full">برمجة</span>
+                        <span class="bg-uni-blue-100 text-uni-blue-800 text-xs py-1 px-2 rounded-full">تصوير</span>
+                    </div>
+                    <p class="text-sm text-gray-500">
+                        <i class="fas fa-user-tie ml-1"></i>
+                        رئيس القسم: د. أمل كرم خليفة
+                    </p>
+                </div>
+            </div>
+              <!-- Department 2: Home Economics -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                <div class="h-40 bg-gradient-to-r from-uni-orange-600 to-uni-orange-400 relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-utensils text-6xl text-white opacity-25"></i>
+                    </div>
+                    <div class="absolute inset-0 flex items-end p-6">
+                        <h3 class="text-xl font-bold text-white">قسم الاقتصاد المنزلي</h3>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">يهتم بالتغذية والمنسوجات ورعاية الطفل وإدارة المنزل، ويقبل الطلاب والطالبات من جميع الشعب</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-uni-orange-100 text-uni-orange-800 text-xs py-1 px-2 rounded-full">تغذية</span>
+                        <span class="bg-uni-orange-100 text-uni-orange-800 text-xs py-1 px-2 rounded-full">منسوجات</span>
+                        <span class="bg-uni-orange-100 text-uni-orange-800 text-xs py-1 px-2 rounded-full">رعاية الطفل</span>
+                    </div>
+                    <p class="text-sm text-gray-500">
+                        <i class="fas fa-user-tie ml-1"></i>
+                        رئيس القسم: د. ابتسام فتح محمود
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Department 3: Art Education -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                <div class="h-40 bg-gradient-to-r from-uni-teal-600 to-uni-teal-400 relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-paint-brush text-6xl text-white opacity-25"></i>
+                    </div>
+                    <div class="absolute inset-0 flex items-end p-6">
+                        <h3 class="text-xl font-bold text-white">قسم التربية الفنية</h3>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">يركز على الرسم والنحت والخزف والأشغال الفنية، ويتطلب اختبار قدرات فنية للقبول</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-uni-teal-100 text-uni-teal-800 text-xs py-1 px-2 rounded-full">رسم</span>
+                        <span class="bg-uni-teal-100 text-uni-teal-800 text-xs py-1 px-2 rounded-full">نحت</span>
+                        <span class="bg-uni-teal-100 text-uni-teal-800 text-xs py-1 px-2 rounded-full">خزف</span>
+                    </div>
+                    <p class="text-sm text-gray-500">
+                        <i class="fas fa-user-tie ml-1"></i>
+                        رئيس القسم: د. جيهان فاروق أبو الخير
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Department 4: Music Education -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                <div class="h-40 bg-gradient-to-r from-purple-600 to-purple-400 relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-music text-6xl text-white opacity-25"></i>
+                    </div>
+                    <div class="absolute inset-0 flex items-end p-6">
+                        <h3 class="text-xl font-bold text-white">قسم التربية الموسيقية</h3>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">يركز على العزف على الآلات الموسيقية ونظريات الموسيقى والأداء، ويتطلب اختبار قدرات موسيقية</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-purple-100 text-purple-800 text-xs py-1 px-2 rounded-full">آلات موسيقية</span>
+                        <span class="bg-purple-100 text-purple-800 text-xs py-1 px-2 rounded-full">نظريات</span>
+                        <span class="bg-purple-100 text-purple-800 text-xs py-1 px-2 rounded-full">أداء</span>
+                    </div>
+                    <p class="text-sm text-gray-500">
+                        <i class="fas fa-user-tie ml-1"></i>
+                        رئيس القسم: د. منال فراج حسن
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Department 5: Educational & Psychological Sciences -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                <div class="h-40 bg-gradient-to-r from-green-600 to-green-400 relative overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <i class="fas fa-brain text-6xl text-white opacity-25"></i>
+                    </div>
+                    <div class="absolute inset-0 flex items-end p-6">
+                        <h3 class="text-xl font-bold text-white">قسم العلوم التربوية والنفسية</h3>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-4">يركز على طرق التدريس وعلم النفس والمناهج، ويعد الطلاب لمهنة التدريس</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="bg-green-100 text-green-800 text-xs py-1 px-2 rounded-full">طرق تدريس</span>
+                        <span class="bg-green-100 text-green-800 text-xs py-1 px-2 rounded-full">علم نفس</span>
+                        <span class="bg-green-100 text-green-800 text-xs py-1 px-2 rounded-full">مناهج</span>
+                    </div>
+                    <p class="text-sm text-gray-500">
+                        <i class="fas fa-user-tie ml-1"></i>
+                        رئيس القسم: د. هالة سعيد أبو العلا
+                    </p>
+                </div>
+            </div>
+              <!-- View More Link -->
+            <div class="bg-gray-100 rounded-xl border border-dashed border-gray-300 overflow-hidden hover:bg-gray-200 transition-all duration-300 flex items-center justify-center p-6">
+                <a href="{{ url_for('main.about') }}" class="text-gray-700 hover:text-uni-blue-800 text-lg font-medium flex flex-col items-center">
+                    <i class="fas fa-arrow-left text-3xl mb-2"></i>
+                    <span>عرض المزيد من التفاصيل</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
 <section class="py-16 bg-white">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12">
             <h2 class="text-3xl font-bold text-gray-900 mb-4">كيف يمكن للمساعد الذكي مساعدتك؟</h2>
-            <p class="text-gray-600 max-w-lg mx-auto">يقدم المساعد الذكي مجموعة من المميزات التي تساعدك في الحصول على المعلومات بسرعة وسهولة</p>
+            <p class="text-gray-600 max-w-2xl mx-auto">يقدم المساعد الذكي مجموعة من المميزات التي تساعدك في الحصول على المعلومات بسرعة وسهولة</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <!-- Feature 1 -->
-            <div class="feature-card-simple">
-                <div class="feature-icon-simple">
-                    <i class="fas fa-graduation-cap text-xl"></i>
+            <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border-t-4 border-uni-blue-600">
+                <div class="bg-uni-blue-100 text-uni-blue-700 w-16 h-16 rounded-lg mb-6 flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-2xl"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">معلومات المقررات</h3>
-                <p class="text-gray-600">الحصول على معلومات تفصيلية عن المقررات الدراسية والمحتوى والمتطلبات بسهولة</p>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">معلومات المقررات</h3>
+                <p class="text-gray-600">الحصول على معلومات تفصيلية عن المقررات الدراسية والمحتوى والمتطلبات لكل قسم</p>
             </div>
             
             <!-- Feature 2 -->
-            <div class="feature-card-simple">
-                <div class="feature-icon-simple">
-                    <i class="fas fa-user-tie text-xl"></i>
+            <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border-t-4 border-uni-teal-600">
+                <div class="bg-uni-teal-100 text-uni-teal-700 w-16 h-16 rounded-lg mb-6 flex items-center justify-center">
+                    <i class="fas fa-user-tie text-2xl"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">معلومات الأساتذة</h3>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">معلومات الأساتذة</h3>
                 <p class="text-gray-600">التعرف على أساتذة المقررات وتخصصاتهم ومواعيد الساعات المكتبية بشكل دقيق</p>
             </div>
             
             <!-- Feature 3 -->
+            <div class="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 p-6 border-t-4 border-uni-orange-500">
+                <div class="bg-uni-orange-100 text-uni-orange-700 w-16 h-16 rounded-lg mb-6 flex items-center justify-center">
+                    <i class="fas fa-calendar-alt text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">مواعيد هامة</h3>
+                <p class="text-gray-600">معرفة مواعيد المحاضرات والاختبارات وبداية ونهاية الفصول الدراسية</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-16 bg-gradient-to-br from-uni-teal-700 to-uni-blue-800 text-white relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 overflow-hidden opacity-10">
+        <div class="absolute left-0 top-0 w-40 h-40 rounded-full bg-white"></div>
+        <div class="absolute right-0 bottom-0 w-60 h-60 rounded-full bg-white"></div>
+        <svg class="absolute right-0 top-0 h-full w-1/2 opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0,0 L100,0 L0,100 Z" fill="currentColor"></path>
+        </svg>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center justify-between">
+            <div class="mb-8 lg:mb-0 text-center lg:text-right">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-4">هل جاهز لبدء المحادثة؟</h2>
+                <p class="text-xl text-gray-100 max-w-lg">جرب المساعد الذكي الآن واحصل على إجابات لجميع استفساراتك حول الجامعة</p>
+            </div>
+            
+            <div>
+                <a href="{{ url_for('main.chat') }}" class="bg-white hover:bg-gray-100 text-uni-blue-800 py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-lg font-bold flex items-center">
+                    <i class="fas fa-robot ml-2"></i>
+                    <span>بدء محادثة جديدة</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
             <div class="feature-card-simple">
                 <div class="feature-icon-simple">
                     <i class="fas fa-calendar-alt text-xl"></i>

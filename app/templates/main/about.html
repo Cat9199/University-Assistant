@@ -1,77 +1,189 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="max-w-5xl mx-auto">
-    <div class="text-center py-8">
-        <h1 class="text-3xl font-bold text-primary-700 mb-4">حول المساعد الذكي</h1>
-        <p class="text-xl mb-8">كلية التربية النوعية - قسم حاسب آلي</p>
+<div class="container-custom py-10">
+    <!-- Hero Section -->
+    <div class="text-center py-12 px-4 relative">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-teal-50 opacity-70 -z-10 rounded-2xl"></div>
+        <h1 class="text-4xl font-bold mb-4 text-gradient">حول المساعد الذكي</h1>
+        <p class="text-xl mb-8 text-gray-700">كلية التربية النوعية - قسم حاسب آلي</p>
+        <div class="w-24 h-1 bg-gradient-to-r from-university-blue to-university-teal mx-auto mb-8 rounded-full"></div>
     </div>
     
-    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h2 class="text-2xl font-semibold mb-4">ما هو المساعد الذكي للجامعة؟</h2>
-        <p class="mb-4">المساعد الذكي للجامعة هو نظام ذكاء اصطناعي مصمم خصيصاً لمساعدة طلاب قسم حاسب آلي بكلية التربية النوعية في الحصول على المعلومات المطلوبة بسهولة وسرعة.</p>
-        <p class="mb-4">يمكن للمساعد الذكي الإجابة عن أسئلتك المتعلقة بالدكاترة والمواد الدراسية والمنهج، مما يوفر عليك الوقت والجهد في البحث عن هذه المعلومات.</p>
+    <div class="card mb-10 p-6 md:p-8 border-t-4 border-university-blue">
+        <h2 class="text-2xl font-semibold mb-4 flex items-center">
+            <span class="inline-block p-2 bg-blue-100 text-university-blue rounded-lg ml-3">
+                <i class="fas fa-robot"></i>
+            </span>
+            ما هو المساعد الذكي للجامعة؟
+        </h2>
+        <p class="mb-6 text-gray-700 leading-relaxed">المساعد الذكي للجامعة هو نظام ذكاء اصطناعي مصمم خصيصاً لمساعدة طلاب قسم حاسب آلي بكلية التربية النوعية في الحصول على المعلومات المطلوبة بسهولة وسرعة.</p>
+        <p class="mb-4 text-gray-700 leading-relaxed">يمكن للمساعد الذكي الإجابة عن أسئلتك المتعلقة بالدكاترة والمواد الدراسية والمنهج، مما يوفر عليك الوقت والجهد في البحث عن هذه المعلومات.</p>
+        
+        <!-- Feature cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <div class="bg-blue-50 p-5 rounded-lg border border-blue-100 text-center hover:shadow-md transition-all">
+                <div class="w-12 h-12 bg-blue-100 text-university-blue rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">سرعة الاستجابة</h3>
+                <p class="text-gray-600 text-sm">الحصول على المعلومات بشكل فوري دون الحاجة للبحث الطويل</p>
+            </div>
+            <div class="bg-teal-50 p-5 rounded-lg border border-teal-100 text-center hover:shadow-md transition-all">
+                <div class="w-12 h-12 bg-teal-100 text-university-teal rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">معلومات موثوقة</h3>
+                <p class="text-gray-600 text-sm">بيانات دقيقة مستخلصة من قاعدة بيانات الجامعة الرسمية</p>
+            </div>
+            <div class="bg-orange-50 p-5 rounded-lg border border-orange-100 text-center hover:shadow-md transition-all">
+                <div class="w-12 h-12 bg-orange-100 text-university-orange rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">محادثة طبيعية</h3>
+                <p class="text-gray-600 text-sm">التفاعل باللغة العربية بشكل سلس وطبيعي مع المساعد الذكي</p>
+            </div>
+        </div>
     </div>
-    
-    <!-- القسم الخاص بالدكاترة -->
-    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h2 class="text-2xl font-semibold mb-4">الدكاترة</h2>
+      <!-- القسم الخاص بالدكاترة -->
+    <div class="card mb-10 p-6 md:p-8 border-t-4 border-university-teal">
+        <h2 class="text-2xl font-semibold mb-6 flex items-center">
+            <span class="inline-block p-2 bg-teal-100 text-university-teal rounded-lg ml-3">
+                <i class="fas fa-user-tie"></i>
+            </span>
+            أعضاء هيئة التدريس
+        </h2>
+        
         {% if professors %}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {% for professor in professors %}
-                <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                    <h3 class="text-lg font-medium text-primary-700">{{ professor.title }} {{ professor.name }}</h3>
-                    <p class="text-gray-600 mb-2">{{ professor.department }}</p>
-                    <div class="text-sm">
+                <div class="bg-white p-5 rounded-lg border border-gray-200 hover:shadow-md transition-all hover:border-teal-200">
+                    <div class="flex items-center mb-3">
+                        <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center ml-3 text-university-teal">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-medium text-university-blue">{{ professor.title }} {{ professor.name }}</h3>
+                            <p class="text-gray-500 text-sm">{{ professor.department }}</p>
+                        </div>
+                    </div>
+                    <div class="pr-3 border-r-2 border-teal-100 mt-4">
                         {% if professor.email %}
-                        <p class="mb-1"><span class="font-semibold">البريد الإلكتروني:</span> {{ professor.email }}</p>
+                        <div class="flex items-center mb-2 text-sm">
+                            <span class="inline-block w-5 text-university-teal ml-2"><i class="fas fa-envelope"></i></span>
+                            <span class="font-semibold ml-1 text-gray-700">البريد الإلكتروني:</span> 
+                            <span class="text-gray-600">{{ professor.email }}</span>
+                        </div>
                         {% endif %}
+                        
                         {% if professor.phone %}
-                        <p class="mb-1"><span class="font-semibold">الهاتف:</span> {{ professor.phone }}</p>
+                        <div class="flex items-center mb-2 text-sm">
+                            <span class="inline-block w-5 text-university-teal ml-2"><i class="fas fa-phone"></i></span>
+                            <span class="font-semibold ml-1 text-gray-700">الهاتف:</span> 
+                            <span class="text-gray-600">{{ professor.phone }}</span>
+                        </div>
                         {% endif %}
+                        
                         {% if professor.office_hours %}
-                        <p class="mb-1"><span class="font-semibold">الساعات المكتبية:</span> {{ professor.office_hours }}</p>
+                        <div class="flex items-center mb-2 text-sm">
+                            <span class="inline-block w-5 text-university-teal ml-2"><i class="fas fa-clock"></i></span>
+                            <span class="font-semibold ml-1 text-gray-700">الساعات المكتبية:</span> 
+                            <span class="text-gray-600">{{ professor.office_hours }}</span>
+                        </div>
                         {% endif %}
                     </div>
                 </div>
                 {% endfor %}
             </div>
         {% else %}
-            <p class="text-gray-600">لا يوجد بيانات للدكاترة حالياً.</p>
+            <div class="bg-blue-50 p-6 rounded-lg text-center">
+                <i class="fas fa-info-circle text-university-blue text-2xl mb-3"></i>
+                <p class="text-gray-600">لا يوجد بيانات للدكاترة حالياً.</p>
+            </div>
         {% endif %}
     </div>
-    
-    <!-- القسم الخاص بالمواد الدراسية -->
-    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-        <h2 class="text-2xl font-semibold mb-4">المواد الدراسية</h2>
+      <!-- القسم الخاص بالمواد الدراسية -->
+    <div class="card mb-10 p-6 md:p-8 border-t-4 border-university-orange">
+        <h2 class="text-2xl font-semibold mb-6 flex items-center">
+            <span class="inline-block p-2 bg-orange-100 text-university-orange rounded-lg ml-3">
+                <i class="fas fa-book-open"></i>
+            </span>
+            المقررات الدراسية
+        </h2>
+        
         {% if courses %}
             <div class="overflow-x-auto">
-                <table class="min-w-full bg-white">
-                    <thead class="bg-primary-100">
+                <table class="min-w-full bg-white rounded-lg overflow-hidden shadow-sm">
+                    <thead class="bg-gradient-to-r from-blue-50 to-orange-50">
                         <tr>
-                            <th class="py-2 px-4 border-b text-right">كود المادة</th>
-                            <th class="py-2 px-4 border-b text-right">اسم المادة</th>
-                            <th class="py-2 px-4 border-b text-right">الساعات المعتمدة</th>
-                            <th class="py-2 px-4 border-b text-right">الدكتور المسؤول</th>
-                            <th class="py-2 px-4 border-b text-right">الفصل الدراسي</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-right font-medium text-gray-700">كود المادة</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-right font-medium text-gray-700">اسم المادة</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-right font-medium text-gray-700">الساعات المعتمدة</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-right font-medium text-gray-700">الدكتور المسؤول</th>
+                            <th class="py-3 px-4 border-b border-gray-200 text-right font-medium text-gray-700">الفصل الدراسي</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="divide-y divide-gray-100">
                         {% for course in courses %}
-                        <tr class="hover:bg-gray-50">
-                            <td class="py-2 px-4 border-b">{{ course.code }}</td>
-                            <td class="py-2 px-4 border-b">{{ course.name }}</td>
-                            <td class="py-2 px-4 border-b">{{ course.credit_hours }}</td>
-                            <td class="py-2 px-4 border-b">{{ course.professor.name if course.professor else "غير محدد" }}</td>
-                            <td class="py-2 px-4 border-b">{{ course.semester if course.semester else "غير محدد" }}</td>
+                        <tr class="hover:bg-gray-50 transition duration-150">
+                            <td class="py-3 px-4 border-b border-gray-200 font-medium text-university-blue">{{ course.code }}</td>
+                            <td class="py-3 px-4 border-b border-gray-200">{{ course.name }}</td>
+                            <td class="py-3 px-4 border-b border-gray-200 text-center">
+                                <span class="inline-block bg-blue-50 text-university-blue rounded-full px-3 py-1 text-xs font-medium">
+                                    {{ course.credit_hours }} ساعة
+                                </span>
+                            </td>
+                            <td class="py-3 px-4 border-b border-gray-200">
+                                {% if course.professor %}
+                                    <div class="flex items-center">
+                                        <span class="w-2 h-2 bg-green-400 rounded-full ml-2"></span>
+                                        {{ course.professor.name }}
+                                    </div>
+                                {% else %}
+                                    <div class="flex items-center text-gray-500">
+                                        <span class="w-2 h-2 bg-gray-300 rounded-full ml-2"></span>
+                                        غير محدد
+                                    </div>
+                                {% endif %}
+                            </td>
+                            <td class="py-3 px-4 border-b border-gray-200">
+                                {% if course.semester %}
+                                    <span class="bg-orange-50 text-university-orange rounded-lg px-2 py-1 text-xs">
+                                        {{ course.semester }}
+                                    </span>
+                                {% else %}
+                                    <span class="bg-gray-50 text-gray-500 rounded-lg px-2 py-1 text-xs">
+                                        غير محدد
+                                    </span>
+                                {% endif %}
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         {% else %}
-            <p class="text-gray-600">لا يوجد بيانات للمواد الدراسية حالياً.</p>
+            <div class="bg-orange-50 p-6 rounded-lg text-center">
+                <i class="fas fa-info-circle text-university-orange text-2xl mb-3"></i>
+                <p class="text-gray-600">لا يوجد بيانات للمقررات الدراسية حالياً.</p>
+            </div>
         {% endif %}
+    </div>
+    
+    <!-- Footer Section -->
+    <div class="text-center mt-16 mb-8 py-8 border-t border-gray-200">
+        <p class="text-gray-500 mb-2">تم تطويره بواسطة فريق قسم حاسب آلي - كلية التربية النوعية</p>
+        <div class="flex justify-center space-x-4 space-x-reverse">
+            <a href="#" class="text-gray-400 hover:text-university-blue">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-university-blue">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-university-blue">
+                <i class="fab fa-instagram"></i>
+            </a>
+        </div>
     </div>
 </div>
 {% endblock %}
