@@ -1,0 +1,258 @@
+{% extends "admin/admin_base.html" %}
+
+{% block admin_title %}لوحة المعلومات{% endblock %}
+
+{% block admin_content %}
+<!-- Overview Stats -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+    <!-- Professors Stats -->
+    <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl text-white p-6 shadow-lg hover:shadow-xl transition-shadow">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/80 text-sm font-medium mb-1">الدكاترة</p>
+                <h3 class="text-3xl font-bold">{{ professors_count }}</h3>
+                <p class="text-xs mt-2 text-white/80">إجمالي عدد أعضاء هيئة التدريس</p>
+            </div>
+            <div class="bg-white/20 p-3 rounded-xl">
+                <i class="fas fa-user-tie text-2xl"></i>
+            </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-white/20">
+            <a href="{{ url_for('admin.professors') }}" class="text-sm flex items-center text-white/90 hover:text-white">
+                <span>عرض التفاصيل</span>
+                <i class="fas fa-chevron-left mr-1 text-xs"></i>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Courses Stats -->
+    <div class="bg-gradient-to-r from-violet-500 to-purple-600 rounded-xl text-white p-6 shadow-lg hover:shadow-xl transition-shadow">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/80 text-sm font-medium mb-1">المقررات الدراسية</p>
+                <h3 class="text-3xl font-bold">{{ courses_count }}</h3>
+                <p class="text-xs mt-2 text-white/80">إجمالي عدد المقررات المتاحة</p>
+            </div>
+            <div class="bg-white/20 p-3 rounded-xl">
+                <i class="fas fa-book text-2xl"></i>
+            </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-white/20">
+            <a href="{{ url_for('admin.courses') }}" class="text-sm flex items-center text-white/90 hover:text-white">
+                <span>عرض التفاصيل</span>
+                <i class="fas fa-chevron-left mr-1 text-xs"></i>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Prompts Stats -->
+    <div class="bg-gradient-to-r from-fuchsia-500 to-pink-600 rounded-xl text-white p-6 shadow-lg hover:shadow-xl transition-shadow">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/80 text-sm font-medium mb-1">البرومبتات</p>
+                <h3 class="text-3xl font-bold">{{ prompts_count }}</h3>
+                <p class="text-xs mt-2 text-white/80">إجمالي عدد البرومبتات المخصصة</p>
+            </div>
+            <div class="bg-white/20 p-3 rounded-xl">
+                <i class="fas fa-comment-dots text-2xl"></i>
+            </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-white/20">
+            <a href="{{ url_for('admin.prompts') }}" class="text-sm flex items-center text-white/90 hover:text-white">
+                <span>عرض التفاصيل</span>
+                <i class="fas fa-chevron-left mr-1 text-xs"></i>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Chat Stats -->
+    <div class="bg-gradient-to-r from-rose-500 to-red-600 rounded-xl text-white p-6 shadow-lg hover:shadow-xl transition-shadow">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-white/80 text-sm font-medium mb-1">المحادثات</p>
+                <h3 class="text-3xl font-bold">{{ chat_count }}</h3>
+                <p class="text-xs mt-2 text-white/80">إجمالي عدد المحادثات المسجلة</p>
+            </div>
+            <div class="bg-white/20 p-3 rounded-xl">
+                <i class="fas fa-comments text-2xl"></i>
+            </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-white/20">
+            <a href="{{ url_for('admin.chat_history') }}" class="text-sm flex items-center text-white/90 hover:text-white">
+                <span>عرض التفاصيل</span>
+                <i class="fas fa-chevron-left mr-1 text-xs"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions & System Info -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+    <div class="lg:col-span-2">
+        <!-- Quick Actions Cards -->
+        <div class="admin-card mb-5">
+            <h2 class="admin-section-title">
+                <i class="fas fa-bolt text-amber-500"></i>
+                <span>إجراءات سريعة</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <!-- Add Professor -->
+                <a href="{{ url_for('admin.add_professor') }}" class="flex flex-col items-center p-5 rounded-lg border border-gray-100 bg-white hover:border-primary-200 hover:bg-primary-50/30 transition-all group">
+                    <div class="w-12 h-12 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center mb-3 group-hover:bg-primary-600 group-hover:text-white transition-all">
+                        <i class="fas fa-user-plus text-lg"></i>
+                    </div>
+                    <h3 class="font-medium text-gray-800 mb-1 text-center">إضافة دكتور</h3>
+                    <p class="text-xs text-gray-500 text-center">إضافة عضو هيئة تدريس جديد</p>
+                </a>
+                
+                <!-- Add Course -->
+                <a href="{{ url_for('admin.add_course') }}" class="flex flex-col items-center p-5 rounded-lg border border-gray-100 bg-white hover:border-primary-200 hover:bg-primary-50/30 transition-all group">
+                    <div class="w-12 h-12 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center mb-3 group-hover:bg-primary-600 group-hover:text-white transition-all">
+                        <i class="fas fa-book-medical text-lg"></i>
+                    </div>
+                    <h3 class="font-medium text-gray-800 mb-1 text-center">إضافة مقرر</h3>
+                    <p class="text-xs text-gray-500 text-center">إضافة مقرر دراسي جديد</p>
+                </a>
+                
+                <!-- Add Prompt -->
+                <a href="{{ url_for('admin.add_prompt') }}" class="flex flex-col items-center p-5 rounded-lg border border-gray-100 bg-white hover:border-primary-200 hover:bg-primary-50/30 transition-all group">
+                    <div class="w-12 h-12 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center mb-3 group-hover:bg-primary-600 group-hover:text-white transition-all">
+                        <i class="fas fa-comment-medical text-lg"></i>
+                    </div>
+                    <h3 class="font-medium text-gray-800 mb-1 text-center">إضافة برومبت</h3>
+                    <p class="text-xs text-gray-500 text-center">تخصيص المساعد الذكي</p>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Recent Chat History -->
+        <div class="admin-card">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="admin-section-title m-0">
+                    <i class="fas fa-history text-blue-500"></i>
+                    <span>آخر المحادثات</span>
+                </h2>
+                <a href="{{ url_for('admin.chat_history') }}" class="text-sm text-primary-600 hover:text-primary-800 flex items-center">
+                    <span>عرض الكل</span>
+                    <i class="fas fa-chevron-left mr-1"></i>
+                </a>
+            </div>
+            
+            <div class="overflow-hidden rounded-lg border border-gray-200">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500">السؤال</th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500">التاريخ</th>
+                            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500">المصدر</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for i in range(5) %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 truncate max-w-xs">
+                                <span>كيف يمكنني معرفة المزيد عن المقررات المتاحة؟</span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">منذ 5 ساعات</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-blue-50 text-blue-700">موقع الويب</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div>
+        <!-- System Info -->
+        <div class="admin-card mb-5">
+            <h2 class="admin-section-title">
+                <i class="fas fa-info-circle text-primary-500"></i>
+                <span>معلومات النظام</span>
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="flex items-center p-3 border border-gray-100 rounded-lg bg-gray-50">
+                    <div class="text-gray-500 w-10 text-center">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500">التاريخ الحالي</p>
+                        <p class="text-sm font-medium">{{ now.strftime('%Y-%m-%d') }}</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-3 border border-gray-100 rounded-lg bg-gray-50">
+                    <div class="text-gray-500 w-10 text-center">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500">الوقت الحالي</p>
+                        <p class="text-sm font-medium">{{ now.strftime('%H:%M:%S') }}</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-3 border border-gray-100 rounded-lg bg-gray-50">
+                    <div class="text-gray-500 w-10 text-center">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-500">إصدار النظام</p>
+                        <p class="text-sm font-medium">1.0.0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- System Status -->
+        <div class="admin-card">
+            <h2 class="admin-section-title">
+                <i class="fas fa-server text-green-500"></i>
+                <span>حالة النظام</span>
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <span class="flex h-3 w-3 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
+                        <p class="text-sm font-medium text-gray-700 mr-2">الخادم</p>
+                    </div>
+                    <p class="text-xs text-green-600 font-medium">متصل</p>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <span class="flex h-3 w-3 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
+                        <p class="text-sm font-medium text-gray-700 mr-2">واجهة API</p>
+                    </div>
+                    <p class="text-xs text-green-600 font-medium">متصلة</p>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <span class="flex h-3 w-3 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
+                        <p class="text-sm font-medium text-gray-700 mr-2">قاعدة البيانات</p>
+                    </div>
+                    <p class="text-xs text-green-600 font-medium">متصلة</p>
+                </div>
+                
+                <div class="pt-3 mt-3 border-t border-gray-100">
+                    <p class="text-xs text-gray-500">آخر تحديث: {{ now.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

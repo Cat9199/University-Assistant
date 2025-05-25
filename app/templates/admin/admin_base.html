@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}المساعد الذكي للجامعة{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts - Cairo (Arabic) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'cairo': ['Cairo', 'sans-serif']
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                            950: '#2e1065',
+                        },
+                        secondary: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                            950: '#042f2e',
+                        },
+                    },
+                    boxShadow: {
+                        'card': '0 2px 6px rgba(0, 0, 0, 0.05), 0 8px 20px rgba(0, 0, 0, 0.04)',
+                        'sidebar': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025)',
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #f9fafb;
+        }
+        
+        /* Button styles */
+        .btn-primary {
+            @apply bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-lg font-medium transition-all duration-300 shadow-sm hover:shadow-md focus:ring-4 focus:ring-primary-300 focus:ring-opacity-50;
+        }
+        
+        .btn-secondary {
+            @apply bg-secondary-500 hover:bg-secondary-600 text-white px-5 py-2.5 rounded-lg font-medium transition-all duration-300 shadow-sm hover:shadow-md focus:ring-4 focus:ring-secondary-300 focus:ring-opacity-50;
+        }
+        
+        .btn-outline {
+            @apply border border-gray-300 hover:border-primary-600 hover:bg-primary-50 text-gray-700 hover:text-primary-700 px-5 py-2.5 rounded-lg font-medium transition-all duration-300 focus:ring-4 focus:ring-primary-300 focus:ring-opacity-30;
+        }
+        
+        .btn-danger {
+            @apply bg-red-500 hover:bg-red-600 text-white px-5 py-2.5 rounded-lg font-medium transition-all duration-300 shadow-sm hover:shadow-md focus:ring-4 focus:ring-red-300 focus:ring-opacity-50;
+        }
+        
+        .btn-sm {
+            @apply px-3.5 py-1.5 text-sm;
+        }
+        
+        .btn-xs {
+            @apply px-2.5 py-1 text-xs rounded-md;
+        }
+        
+        .btn-icon {
+            @apply p-2.5 flex items-center justify-center;
+        }
+        
+        /* Form styles - Enhanced */
+        .form-container {
+            @apply bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-8;
+        }
+        
+        .form-header {
+            @apply flex items-center justify-between mb-6 pb-4 border-b border-gray-100;
+        }
+        
+        .form-title {
+            @apply text-xl font-semibold text-gray-800 flex items-center;
+        }
+        
+        .form-title i {
+            @apply text-primary-600 ml-2;
+        }
+        
+        .form-row {
+            @apply grid grid-cols-1 md:grid-cols-2 gap-6 mb-4;
+        }
+        
+        .form-input {
+            @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all bg-white;
+        }
+        
+        .form-select {
+            @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all bg-white appearance-none;
+        }
+        
+        .form-textarea {
+            @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all bg-white resize-y min-h-[120px];
+        }
+        
+        .form-checkbox {
+            @apply h-5 w-5 text-primary-600 rounded focus:ring-2 focus:ring-primary-500 cursor-pointer ml-2;
+        }
+        
+        .form-radio {
+            @apply h-5 w-5 text-primary-600 focus:ring-2 focus:ring-primary-500 cursor-pointer ml-2;
+        }
+        
+        .form-label {
+            @apply block mb-2 text-sm font-medium text-gray-700;
+        }
+        
+        .form-hint {
+            @apply text-xs text-gray-500 mt-1;
+        }
+        
+        .form-error {
+            @apply text-xs text-red-500 mt-1;
+        }
+        
+        .form-group {
+            @apply mb-5;
+        }
+        
+        .form-actions {
+            @apply flex flex-wrap justify-end gap-3 mt-8 pt-4 border-t border-gray-100;
+        }
+        
+        .form-file-upload {
+            @apply relative border-2 border-dashed border-gray-300 rounded-lg py-6 px-4 text-center cursor-pointer transition-all hover:border-primary-400 hover:bg-primary-50;
+        }
+        
+        .form-file-upload input[type="file"] {
+            @apply absolute inset-0 w-full h-full opacity-0 cursor-pointer;
+        }
+        
+        .form-file-preview {
+            @apply mt-3 flex flex-wrap gap-2;
+        }
+        
+        .form-file-item {
+            @apply relative bg-gray-100 rounded-md p-2 flex items-center text-sm;
+        }
+        
+        .form-file-item button {
+            @apply ml-2 text-gray-400 hover:text-red-500;
+        }
+        
+        .form-divider {
+            @apply my-6 border-t border-gray-100;
+        }
+        
+        .form-section-title {
+            @apply text-lg font-medium text-gray-700 mb-4;
+        }
+        
+        /* Table styles - Enhanced */
+        .table-container {
+            @apply w-full bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100;
+        }
+        
+        .table-header {
+            @apply px-6 py-4 bg-white border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4;
+        }
+        
+        .table-title {
+            @apply text-xl font-semibold text-gray-800 flex items-center gap-2;
+        }
+        
+        .table-actions {
+            @apply flex flex-wrap items-center gap-2;
+        }
+        
+        .table-search {
+            @apply flex items-center;
+        }
+        
+        .table-search input {
+            @apply w-full sm:w-64 px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all;
+        }
+        
+        .table-search button {
+            @apply -mr-10 text-gray-400 hover:text-primary-600 z-10;
+        }
+        
+        .table-filters {
+            @apply flex items-center gap-2;
+        }
+        
+        .table-wrapper {
+            @apply w-full overflow-x-auto;
+        }
+        
+        .admin-table {
+            @apply min-w-full divide-y divide-gray-200;
+        }
+        
+        .admin-table thead {
+            @apply bg-gray-50;
+        }
+        
+        .admin-table th {
+            @apply px-6 py-4 text-right text-xs font-bold text-gray-600 uppercase tracking-wider;
+        }
+        
+        .admin-table td {
+            @apply px-6 py-4 whitespace-nowrap text-sm text-gray-700;
+        }
+        
+        .admin-table tr {
+            @apply hover:bg-gray-50 transition-colors;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .table-row-selected {
+            @apply bg-primary-50;
+        }
+        
+        .table-footer {
+            @apply px-6 py-4 bg-white border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4;
+        }
+        
+        .table-pagination {
+            @apply flex items-center gap-1;
+        }
+        
+        .table-page-button {
+            @apply w-9 h-9 rounded-lg flex items-center justify-center text-sm text-gray-600 hover:bg-primary-50 hover:text-primary-600 transition-colors;
+        }
+        
+        .table-page-button.active {
+            @apply bg-primary-600 text-white hover:bg-primary-700 hover:text-white;
+        }
+        
+        .table-page-info {
+            @apply text-sm text-gray-500;
+        }
+        
+        .table-empty {
+            @apply py-12 text-center;
+        }
+        
+        .table-empty-icon {
+            @apply text-4xl text-gray-300 mb-2;
+        }
+        
+        .table-empty-text {
+            @apply text-gray-500;
+        }
+        
+        .table-cell-actions {
+            @apply flex items-center gap-1 justify-end;
+        }
+        
+        .cell-badge {
+            @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+        }
+        
+        .cell-badge-success {
+            @apply bg-green-100 text-green-800;
+        }
+        
+        .cell-badge-warning {
+            @apply bg-yellow-100 text-yellow-800;
+        }
+        
+        .cell-badge-danger {
+            @apply bg-red-100 text-red-800;
+        }
+        
+        .cell-badge-info {
+            @apply bg-blue-100 text-blue-800;
+        }
+        
+        .cell-badge-primary {
+            @apply bg-primary-100 text-primary-800;
+        }
+        
+        .table-row-new {
+            animation: highlight-row 2s ease-out;
+        }
+        
+        @keyframes highlight-row {
+            0% { background-color: rgba(139, 92, 246, 0.1); }
+            100% { background-color: transparent; }
+        }
+        
+        /* Action buttons for table rows */
+        .row-action {
+            @apply w-8 h-8 rounded-lg flex items-center justify-center transition-all;
+        }
+        
+        .row-action-view {
+            @apply text-blue-600 hover:bg-blue-50;
+        }
+        
+        .row-action-edit {
+            @apply text-amber-600 hover:bg-amber-50;
+        }
+        
+        .row-action-delete {
+            @apply text-red-600 hover:bg-red-50;
+        }
+        
+        /* Card styles */
+        .admin-card {
+            @apply bg-white rounded-xl shadow-card p-6 mb-6 border border-gray-100/50;
+        }
+        
+        .admin-section-title {
+            @apply text-lg font-semibold text-gray-800 mb-6 flex items-center gap-2;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        /* Dashboard styles */
+        .stat-card {
+            @apply relative overflow-hidden bg-white rounded-xl p-6 shadow-card border border-gray-100/50 transition-all duration-300 hover:shadow-lg hover:border-primary-200;
+        }
+        
+        .stat-card .bg-icon {
+            @apply absolute -bottom-4 -left-4 text-7xl opacity-10;
+            z-index: 0;
+        }
+        
+        .stat-icon {
+            @apply w-12 h-12 rounded-xl flex items-center justify-center text-white text-xl shadow-md;
+        }
+        
+        /* Toast notification */
+        .toast {
+            @apply fixed bottom-5 left-5 bg-white shadow-lg rounded-lg p-4 transition-all transform duration-300 flex items-center gap-3 z-50 border-r-4;
+            min-width: 300px;
+            opacity: 0;
+            transform: translateY(100px);
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .toast.success {
+            @apply border-green-500;
+        }
+        
+        .toast.error {
+            @apply border-red-500;
+        }
+        
+        .toast.info {
+            @apply border-blue-500;
+        }
+        
+        /* Modal Styles */
+        .modal-backdrop {
+            @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 opacity-0 transition-opacity pointer-events-none;
+            backdrop-filter: blur(2px);
+        }
+        
+        .modal-backdrop.show {
+            @apply opacity-100 pointer-events-auto;
+        }
+        
+        .modal-container {
+            @apply bg-white rounded-2xl shadow-xl w-full max-w-lg mx-4 transform scale-95 transition-transform duration-300;
+            max-height: calc(100vh - 2rem);
+        }
+        
+        .modal-backdrop.show .modal-container {
+            @apply scale-100;
+        }
+        
+        .modal-header {
+            @apply flex items-center justify-between p-6 border-b border-gray-100;
+        }
+        
+        .modal-title {
+            @apply text-xl font-semibold text-gray-800;
+        }
+        
+        .modal-close {
+            @apply w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 hover:text-gray-600;
+        }
+        
+        .modal-body {
+            @apply p-6 overflow-y-auto;
+            max-height: calc(100vh - 10rem);
+        }
+        
+        .modal-footer {
+            @apply flex items-center justify-end gap-3 p-6 border-t border-gray-100;
+        }
+        .modal-footer .btn {
+            @apply bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600;
+        }
+
+        
+    </style>
+    
+<style>
+    /* Sidebar styles */
+    .dashboard-container {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        min-height: 100vh;
+    }
+    
+    .dashboard-sidebar {
+        width: 280px;
+        transition: all 0.3s ease;
+        z-index: 50;
+        background: #fff;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+        overflow: hidden;
+    }
+    
+    .sidebar-collapsed {
+        width: 80px;
+    }
+    
+    .dashboard-main {
+        transition: all 0.3s ease;
+    }
+    
+    .dashboard-sidebar-header {
+        height: 70px;
+        border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+        display: flex;
+        align-items: center;
+        padding: 0 24px;
+    }
+    
+    .sidebar-logo {
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+    
+    .sidebar-nav {
+        padding: 16px;
+    }
+    
+    .nav-section {
+        margin-bottom: 24px;
+    }
+    
+    .nav-section-title {
+        color: #6b7280;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0 12px;
+        margin-bottom: 8px;
+    }
+    
+    .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 10px 12px;
+        border-radius: 8px;
+        margin-bottom: 4px;
+        color: #4b5563;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .nav-link:hover {
+        background-color: #f5f3ff;
+        color: #6d28d9;
+    }
+    
+    .nav-link.active {
+        background-color: #f5f3ff;
+        color: #6d28d9;
+        font-weight: 600;
+    }
+    
+    .nav-link.active::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%);
+        border-radius: 0 4px 4px 0;
+    }
+    
+    .nav-icon {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 12px;
+        font-size: 18px;
+        flex-shrink: 0;
+        transition: all 0.2s ease;
+    }
+    
+    .nav-link:hover .nav-icon {
+        transform: translateY(-2px);
+    }
+    
+    .nav-link.active .nav-icon {
+        color: #6d28d9;
+    }
+    
+    .nav-text {
+        white-space: nowrap;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+    }
+    
+    .sidebar-collapsed .sidebar-logo .logo-text,
+    .sidebar-collapsed .nav-text,
+    .sidebar-collapsed .nav-section-title {
+        opacity: 0;
+    }
+    
+    .sidebar-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 16px;
+        border-top: 1px solid rgba(229, 231, 235, 0.5);
+        transition: all 0.3s ease;
+    }
+    
+    .user-info {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+    
+    .user-info:hover {
+        background-color: #f9fafb;
+    }
+    
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #7c3aed, #6d28d9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 18px;
+        margin-left: 12px;
+        flex-shrink: 0;
+    }
+    
+    .user-name {
+        font-weight: 600;
+        color: #374151;
+        font-size: 14px;
+    }
+    
+    .user-role {
+        font-size: 12px;
+        color: #6b7280;
+    }
+    
+    /* Top navigation */
+    .dashboard-topbar {
+        height: 70px;
+        border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: white;
+    }
+    
+    .topbar-title {
+        font-weight: 700;
+        color: #1f2937;
+        font-size: 18px;
+    }
+    
+    .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    
+    .action-button {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background-color: #f3f4f6;
+        color: #4b5563;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        transition: all 0.2s ease;
+        position: relative;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .action-button:hover {
+        background-color: #f5f3ff;
+        color: #6d28d9;
+        transform: translateY(-2px);
+    }
+    
+    .notification-badge {
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #ef4444;
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+    }
+    
+    /* Mobile adaptations */
+    .mobile-sidebar-toggle {
+        display: none;
+    }
+    
+    @media (max-width: 1024px) {
+        .dashboard-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .dashboard-sidebar {
+            position: fixed;
+            right: -280px;
+            height: 100vh;
+            box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .dashboard-sidebar.open {
+            right: 0;
+        }
+        
+        .mobile-sidebar-toggle {
+            display: flex;
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 40;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+    
+    /* Dashboard content */
+    .dashboard-content {
+        padding: 24px;
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+        transition: all 0.3s ease;
+    }
+    
+    /* Breadcrumbs */
+    .breadcrumbs {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+        font-size: 14px;
+    }
+    
+    .breadcrumb-item {
+        color: #6b7280;
+    }
+    
+    .breadcrumb-item:not(:last-child)::after {
+        content: "/";
+        margin: 0 8px;
+        color: #d1d5db;
+    }
+    
+    .breadcrumb-item:last-child {
+        color: #1f2937;
+        font-weight: 600;
+    }
+    
+    /* Dashboard footer */
+    .dashboard-footer {
+        padding: 16px 24px;
+        border-top: 1px solid rgba(229, 231, 235, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6b7280;
+        font-size: 14px;
+    }
+    
+    /* Toggle button for sidebar */
+    .sidebar-toggle {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: #6d28d9;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        box-shadow: 0 4px 12px rgba(109, 40, 217, 0.2);
+        cursor: pointer;
+        z-index: 30;
+        transition: all 0.2s ease;
+    }
+    
+    .sidebar-toggle:hover {
+        transform: scale(1.1);
+    }
+</style>
+    
+    {% block styles %}{% endblock %}
+</head>
+<body class="min-h-screen bg-gray-50">
+
+<div class="dashboard-container">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div id="flash-messages" class="fixed top-4 inset-x-0 z-50 flex flex-col items-center gap-y-2">
+                {% for category, message in messages %}
+                    {% set alert_class = {
+                        'success': 'bg-green-100 border-green-500 text-green-700',
+                        'info': 'bg-blue-100 border-blue-500 text-blue-700',
+                        'warning': 'bg-yellow-100 border-yellow-500 text-yellow-700',
+                        'danger': 'bg-red-100 border-red-500 text-red-700'
+                    } %}
+                    {% set alert_icon = {
+                        'success': 'fa-check-circle',
+                        'info': 'fa-info-circle',
+                        'warning': 'fa-exclamation-triangle',
+                        'danger': 'fa-exclamation-circle'
+                    } %}
+                    
+                    <div class="alert w-11/12 md:w-1/2 lg:w-1/3 rounded-lg border-r-4 px-4 py-3 shadow {{ alert_class.get(category, 'bg-gray-100 border-gray-500 text-gray-700') }} flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas {{ alert_icon.get(category, 'fa-info-circle') }} ml-2"></i>
+                            <span>{{ message }}</span>
+                        </div>
+                        <button onclick="this.parentElement.remove()" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+            <script>
+                setTimeout(function() {
+                    const alerts = document.querySelectorAll('.alert');
+                    alerts.forEach(alert => {
+                        alert.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                        setTimeout(() => alert.remove(), 500);
+                    });
+                }, 5000);
+            </script>
+        {% endif %}
+    {% endwith %}
+    <!-- Sidebar -->
+    <aside id="sidebar" class="dashboard-sidebar">
+        <!-- Sidebar Header with Logo -->
+        <div class="dashboard-sidebar-header">
+            <a href="{{ url_for('admin.index') }}" class="sidebar-logo flex items-center">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-600 to-primary-800 text-white flex items-center justify-center shadow-md">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="logo-text mr-3">
+                    <div class="text-base font-bold text-gray-900">لوحة الإدارة</div>
+                    <div class="text-xs text-gray-500">المساعد الذكي للجامعة</div>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar-nav">
+            <!-- Main Navigation -->
+            <div class="nav-section">
+                <div class="nav-section-title">الرئيسية</div>
+                <ul>
+                    <li>
+                        <a href="{{ url_for('admin.index') }}" class="nav-link {{ 'active' if request.endpoint == 'admin.index' }}">
+                            <span class="nav-icon"><i class="fas fa-tachometer-alt"></i></span>
+                            <span class="nav-text">لوحة المعلومات</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Data Management -->
+            <div class="nav-section">
+                <div class="nav-section-title">إدارة البيانات</div>
+                <ul>
+                    <li>
+                        <a href="{{ url_for('admin.professors') }}" class="nav-link {{ 'active' if 'professor' in request.endpoint }}">
+                            <span class="nav-icon"><i class="fas fa-user-tie"></i></span>
+                            <span class="nav-text">الدكاترة</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="{{ url_for('admin.courses') }}" class="nav-link {{ 'active' if 'course' in request.endpoint }}">
+                            <span class="nav-icon"><i class="fas fa-book"></i></span>
+                            <span class="nav-text">المقررات الدراسية</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="{{ url_for('admin.prompts') }}" class="nav-link {{ 'active' if 'prompt' in request.endpoint }}">
+                            <span class="nav-icon"><i class="fas fa-comment-dots"></i></span>
+                            <span class="nav-text">البرومبتات</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Analytics -->
+            <div class="nav-section">
+                <div class="nav-section-title">التحليلات</div>
+                <ul>
+                    <li>
+                        <a href="{{ url_for('admin.chat_history') }}" class="nav-link {{ 'active' if 'chat_history' in request.endpoint }}">
+                            <span class="nav-icon"><i class="fas fa-history"></i></span>
+                            <span class="nav-text">سجل المحادثات</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon"><i class="fas fa-chart-pie"></i></span>
+                            <span class="nav-text">إحصائيات النظام</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Settings -->
+            <div class="nav-section">
+                <div class="nav-section-title">الإعدادات</div>
+                <ul>
+                    <li>
+                        <a href="#" class="nav-link">
+                            <span class="nav-icon"><i class="fas fa-cog"></i></span>
+                            <span class="nav-text">إعدادات النظام</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('main.index') }}" class="nav-link">
+                            <span class="nav-icon"><i class="fas fa-home"></i></span>
+                            <span class="nav-text">العودة للرئيسية</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Sidebar Footer with User Info -->
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <div class="user-name">مدير النظام</div>
+                    <div class="user-role">admin@example.com</div>
+                </div>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Main Content Area -->
+    <div class="dashboard-main">
+        <!-- Top Navigation Bar -->
+        <header class="dashboard-topbar">
+            <!-- Mobile Menu Toggle -->
+            <button id="mobileMenuToggle" class="mobile-sidebar-toggle action-button">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Page Title -->
+            <div class="topbar-title">{% block admin_title %}لوحة الإدارة{% endblock %}</div>
+            
+            <!-- Topbar Actions -->
+            <div class="topbar-actions">
+                <!-- Search -->
+                <button class="action-button">
+                    <i class="fas fa-search"></i>
+                </button>
+                
+                <!-- Notifications -->
+                <button class="action-button">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                
+                <!-- Settings -->
+                <button class="action-button">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <!-- go to site button -->
+                <a href="{{ url_for('main.index') }}" class="action-button">
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+                 
+            </div>
+        </header>
+        
+        <!-- Main Content Area -->
+        <main class="dashboard-content">
+            {% block admin_content %}{% endblock %}
+        </main>
+        
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <p>جميع الحقوق محفوظة &copy; {{ now.strftime('%Y') }} المساعد الذكي للجامعة</p>
+        </footer>
+    </div>
+</div>
+
+<!-- Mobile Sidebar Overlay -->
+<div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+<!-- Sidebar Toggle Button -->
+<div id="sidebarCollapseToggle" class="sidebar-toggle hidden lg:flex">
+    <i id="sidebarToggleIcon" class="fas fa-chevron-right"></i>
+</div>
+
+<!-- Toast Notifications -->
+<div id="toast" class="toast">
+    <div class="toast-icon"></div>
+    <div class="toast-content">
+        <div class="toast-title font-medium"></div>
+        <div class="toast-message text-sm"></div>
+    </div>
+    <button class="toast-close ml-auto text-gray-400 hover:text-gray-600">
+        <i class="fas fa-times"></i>
+    </button>
+</div>
+
+<!-- Generic Modal Template -->
+<div id="modalTemplate" class="modal-backdrop">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title">عنوان النافذة</h3>
+            <button class="modal-close" data-dismiss="modal">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <!-- Modal content goes here -->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-outline" data-dismiss="modal">إلغاء</button>
+            <button type="button" class="btn-primary" id="modalConfirmButton">تأكيد</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const sidebarCollapseToggle = document.getElementById('sidebarCollapseToggle');
+        const sidebarToggleIcon = document.getElementById('sidebarToggleIcon');
+        const toast = document.getElementById('toast');
+        
+        // Mobile menu toggle
+        mobileMenuToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('active');
+        });
+        
+        // Close sidebar when clicking overlay
+        sidebarOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('active');
+        });
+        
+        // Sidebar collapse toggle (desktop)
+        sidebarCollapseToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('sidebar-collapsed');
+            
+            if (sidebar.classList.contains('sidebar-collapsed')) {
+                sidebarToggleIcon.classList.remove('fa-chevron-right');
+                sidebarToggleIcon.classList.add('fa-chevron-left');
+            } else {
+                sidebarToggleIcon.classList.remove('fa-chevron-left');
+                sidebarToggleIcon.classList.add('fa-chevron-right');
+            }
+        });
+        
+        // Toast notification functionality
+        const toastClose = document.querySelector('.toast-close');
+        if (toastClose) {
+            toastClose.addEventListener('click', function() {
+                hideToast();
+            });
+        }
+        
+        // Check for flash messages
+        if (typeof flashMessages !== 'undefined' && flashMessages.length > 0) {
+            flashMessages.forEach(function(message) {
+                showToast(message.type, message.title, message.text);
+            });
+        }
+        
+        // Function to show toast notification
+        window.showToast = function(type, title, message) {
+            toast.className = 'toast ' + type;
+            
+            const toastIcon = toast.querySelector('.toast-icon');
+            const toastTitle = toast.querySelector('.toast-title');
+            const toastMessage = toast.querySelector('.toast-message');
+            
+            // Set icon based on type
+            if (type === 'success') {
+                toastIcon.innerHTML = '<i class="fas fa-check-circle text-green-500 text-xl"></i>';
+            } else if (type === 'error') {
+                toastIcon.innerHTML = '<i class="fas fa-exclamation-circle text-red-500 text-xl"></i>';
+            } else {
+                toastIcon.innerHTML = '<i class="fas fa-info-circle text-blue-500 text-xl"></i>';
+            }
+            
+            toastTitle.textContent = title;
+            toastMessage.textContent = message;
+            
+            toast.classList.add('show');
+            
+            // Auto hide after 5 seconds
+            setTimeout(function() {
+                hideToast();
+            }, 5000);
+        };
+        
+        // Function to hide toast notification
+        window.hideToast = function() {
+            toast.classList.remove('show');
+        };
+        
+        // Modal functionality
+        window.showModal = function(title, content, confirmCallback, cancelCallback) {
+            const modal = document.getElementById('modalTemplate');
+            const modalTitle = modal.querySelector('.modal-title');
+            const modalBody = modal.querySelector('.modal-body');
+            const modalConfirmBtn = modal.querySelector('#modalConfirmButton');
+            
+            modalTitle.textContent = title;
+            modalBody.innerHTML = content;
+            
+            modal.classList.add('show');
+            
+            // Set up confirm button
+            if (confirmCallback) {
+                modalConfirmBtn.addEventListener('click', function onConfirm() {
+                    confirmCallback();
+                    modal.classList.remove('show');
+                    modalConfirmBtn.removeEventListener('click', onConfirm);
+                });
+            }
+            
+            // Close modal on button click
+            const closeButtons = modal.querySelectorAll('[data-dismiss="modal"]');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    modal.classList.remove('show');
+                    if (cancelCallback) cancelCallback();
+                });
+            });
+            
+            // Close on click outside
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.classList.remove('show');
+                    if (cancelCallback) cancelCallback();
+                }
+            });
+        };
+
+        // File upload preview
+        document.querySelectorAll('.form-file-upload input[type="file"]').forEach(input => {
+            input.addEventListener('change', function() {
+                const preview = this.closest('.form-group').querySelector('.form-file-preview');
+                if (!preview) return;
+                
+                preview.innerHTML = '';
+                
+                if (this.files) {
+                    Array.from(this.files).forEach(file => {
+                        const item = document.createElement('div');
+                        item.className = 'form-file-item';
+                        item.innerHTML = `
+                            <span>${file.name}</span>
+                            <button type="button" class="remove-file">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        `;
+                        
+                        item.querySelector('.remove-file').addEventListener('click', () => {
+                            item.remove();
+                            // Reset the file input
+                            this.value = '';
+                        });
+                        
+                        preview.appendChild(item);
+                    });
+                }
+            });
+        });
+        
+        // Table row selection
+        document.querySelectorAll('.admin-table tbody tr').forEach(row => {
+            row.addEventListener('click', function() {
+                const isSelected = this.classList.contains('table-row-selected');
+                
+                // If ctrl/cmd key is not pressed, deselect all rows
+                if (!event.ctrlKey && !event.metaKey) {
+                    document.querySelectorAll('.admin-table tbody tr.table-row-selected').forEach(selectedRow => {
+                        if (selectedRow !== this) {
+                            selectedRow.classList.remove('table-row-selected');
+                        }
+                    });
+                }
+                
+                // Toggle selection of current row
+                this.classList.toggle('table-row-selected');
+            });
+        });
+        
+        // Prevent row selection when clicking action buttons
+        document.querySelectorAll('.admin-table .row-action').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    });
+</script>
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

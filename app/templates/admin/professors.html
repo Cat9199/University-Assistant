@@ -1,0 +1,57 @@
+{% extends "admin/admin_base.html" %}
+
+{% block admin_content %}
+<div class="max-w-6xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-primary-700">إدارة الدكاترة</h1>
+        <a href="{{ url_for('admin.add_professor') }}" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded">إضافة دكتور جديد</a>
+    </div>
+    
+    {% if professors %}
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الاسم</th>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">اللقب</th>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">القسم</th>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">البريد الإلكتروني</th>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for professor in professors %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">{{ professor.name }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ professor.title }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ professor.department }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ professor.email }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
+                            <div class="flex space-x-2 rtl:space-x-reverse">
+                                <a href="{{ url_for('admin.edit_professor', id=professor.id) }}" class="text-primary-600 hover:text-primary-900">تعديل</a>
+                                <form action="{{ url_for('admin.delete_professor', id=professor.id) }}" method="post" class="inline" onsubmit="return confirm('هل أنت متأكد من حذف هذا الدكتور؟');">
+                                    <button type="submit" class="text-red-600 hover:text-red-900">حذف</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="bg-white rounded-lg shadow p-6 text-center">
+            <p class="text-gray-600">لا يوجد دكاترة مسجلين حالياً.</p>
+            <a href="{{ url_for('admin.add_professor') }}" class="mt-4 inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded">إضافة دكتور جديد</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

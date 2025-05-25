@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}المساعد الذكي للجامعة{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    
+    <!-- Google Fonts - Cairo (Arabic) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'cairo': ['Cairo', 'sans-serif']
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                            950: '#1e1b4b',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Base styles */
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+
+        /* Island-style dynamic navbar */
+        .navbar-island {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-island.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+        }
+        
+        .navbar-island .nav-link {
+            position: relative;
+        }
+        
+        .navbar-island .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 50%;
+            background-color: currentColor;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .navbar-island .nav-link:hover::after,
+        .navbar-island .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Button styles */
+        .btn-primary {
+            @apply bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 rounded-xl font-medium transition-all duration-300;
+            box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.2), 0 2px 4px -2px rgba(99, 102, 241, 0.1);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.2), 0 4px 6px -4px rgba(99, 102, 241, 0.1);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Logo animation */
+        .logo {
+            transition: all 0.3s ease;
+        }
+        
+        .logo-bg {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        /* Mobile menu animation */
+        .mobile-menu {
+            clip-path: circle(0% at top right);
+            transition: clip-path 0.5s ease-in-out;
+        }
+        
+        .mobile-menu.open {
+            clip-path: circle(150% at top right);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c7d2fe;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #818cf8;
+        }
+
+        /* Alert styles */
+        .alert {
+            animation: slideInDown 0.5s forwards;
+        }
+        
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Footer styles */
+        .footer-link {
+            position: relative;
+        }
+        
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease;
+        }
+        
+        .footer-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Social icon hover effect */
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+    
+    {% block styles %}{% endblock %}
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="fixed top-5 inset-x-0 z-50 flex flex-col items-center gap-y-3">
+                {% for category, message in messages %}
+                    {% set alert_class = {
+                        'success': 'bg-green-100 border-green-500 text-green-800',
+                        'info': 'bg-blue-100 border-blue-500 text-blue-800',
+                        'warning': 'bg-yellow-100 border-yellow-500 text-yellow-800',
+                        'danger': 'bg-red-100 border-red-500 text-red-800'
+                    } %}
+                    {% set alert_icon = {
+                        'success': 'fa-check-circle',
+                        'info': 'fa-info-circle',
+                        'warning': 'fa-exclamation-triangle',
+                        'danger': 'fa-exclamation-circle'
+                    } %}
+                    
+                    <div class="alert w-11/12 sm:w-2/3 md:w-1/2 lg:w-1/3 rounded-xl border-r-4 px-5 py-3 shadow-lg {{ alert_class.get(category, 'bg-gray-100 border-gray-500 text-gray-800') }} flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas {{ alert_icon.get(category, 'fa-info-circle') }} ml-3 text-lg"></i>
+                            <span class="font-medium">{{ message }}</span>
+                        </div>
+                        <button onclick="this.parentElement.remove()" class="text-gray-500 hover:text-gray-700 transition-colors">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <script>
+                setTimeout(function() {
+                    const alerts = document.querySelectorAll('.alert');
+                    alerts.forEach(alert => {
+                        alert.style.transition = 'all 0.5s ease';
+                        alert.style.opacity = '0';
+                        alert.style.transform = 'translateY(-20px)';
+                        setTimeout(() => alert.remove(), 500);
+                    });
+                }, 5000);
+            </script>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main Navigation -->
+    {% if not hide_nav|default(false) %}
+    <header class="fixed top-0 left-0 right-0 z-40 px-4 py-5">
+        <div class="container mx-auto">
+            <div id="navbarIsland" class="navbar-island px-5 py-3">
+                <div class="flex justify-between items-center">
+                    <!-- Logo -->
+                    <a href="{{ url_for('main.index') }}" class="flex items-center group" aria-label="الصفحة الرئيسية">
+                        <div class="w-12 h-12 logo logo-bg rounded-2xl text-white flex items-center justify-center ml-3">
+                            <i class="fas fa-robot text-xl"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-gray-800 text-xl">المساعد الذكي</span>
+                            <p class="text-xs text-gray-500">للجامعات والطلاب</p>
+                        </div>
+                    </a>
+                    
+                    <!-- Desktop Navigation -->
+                    <nav class="hidden lg:flex items-center space-x-1 space-x-reverse">
+                        <a href="{{ url_for('main.index') }}" class="nav-link px-4 py-2 text-gray-700 hover:text-primary-600 font-medium {{ 'active text-primary-600' if request.endpoint == 'main.index' }}">الرئيسية</a>
+                        
+                        <a href="{{ url_for('main.chat') }}" class="nav-link px-4 py-2 text-gray-700 hover:text-primary-600 font-medium {{ 'active text-primary-600' if request.endpoint == 'main.chat' }}">المحادثة</a>
+                        
+                        <a href="{{ url_for('main.about') }}" class="nav-link px-4 py-2 text-gray-700 hover:text-primary-600 font-medium {{ 'active text-primary-600' if request.endpoint == 'main.about' }}">عن المشروع</a>
+                        
+                        <a href="{{ url_for('admin.index') }}" class="nav-link px-4 py-2 text-gray-700 hover:text-primary-600 font-medium {{ 'active text-primary-600' if request.endpoint.startswith('admin.') }}">الإدارة</a>
+                        
+                        <a href="{{ url_for('main.chat') }}" class="mr-3 flex items-center btn-primary">
+                            <i class="fas fa-comments ml-2"></i>
+                            <span>بدء محادثة</span>
+                        </a>
+                    </nav>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuBtn" class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors focus:outline-none" aria-label="القائمة">
+                        <i id="menuIcon" class="fas fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu (Hidden by default) -->
+            <div id="mobileMenu" class="mobile-menu fixed inset-0 bg-white z-50 pt-24 px-6 lg:hidden">
+                <div class="flex justify-end">
+                    <button id="closeMenuBtn" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors mb-6">
+                        <i class="fas fa-times text-lg"></i>
+                    </button>
+                </div>
+                
+                <nav class="flex flex-col space-y-4 text-lg">
+                    <a href="{{ url_for('main.index') }}" class="flex items-center py-3 px-4 rounded-xl text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-all {{ 'bg-primary-50 text-primary-600 font-medium' if request.endpoint == 'main.index' }}">
+                        <i class="fas fa-home ml-3 w-6 text-center"></i>
+                        <span>الرئيسية</span>
+                    </a>
+                    
+                    <a href="{{ url_for('main.chat') }}" class="flex items-center py-3 px-4 rounded-xl text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-all {{ 'bg-primary-50 text-primary-600 font-medium' if request.endpoint == 'main.chat' }}">
+                        <i class="fas fa-comments ml-3 w-6 text-center"></i>
+                        <span>المحادثة</span>
+                    </a>
+                    
+                    <a href="{{ url_for('main.about') }}" class="flex items-center py-3 px-4 rounded-xl text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-all {{ 'bg-primary-50 text-primary-600 font-medium' if request.endpoint == 'main.about' }}">
+                        <i class="fas fa-info-circle ml-3 w-6 text-center"></i>
+                        <span>عن المشروع</span>
+                    </a>
+                    
+                    <a href="{{ url_for('admin.index') }}" class="flex items-center py-3 px-4 rounded-xl text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-all {{ 'bg-primary-50 text-primary-600 font-medium' if request.endpoint.startswith('admin.') }}">
+                        <i class="fas fa-cog ml-3 w-6 text-center"></i>
+                        <span>الإدارة</span>
+                    </a>
+                    
+                    <div class="pt-6 border-t border-gray-100 mt-2">
+                        <a href="{{ url_for('main.chat') }}" class="w-full flex justify-center items-center btn-primary">
+                            <i class="fas fa-robot ml-2"></i>
+                            <span>بدء محادثة الآن</span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content spacing for fixed navbar -->
+    <div class="h-28"></div>
+    {% endif %}
+    
+    <!-- Main Content -->
+    <main class="flex-grow">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    {% if not hide_footer|default(false) %}
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <!-- Footer About -->
+                <div>
+                    <a href="{{ url_for('main.index') }}" class="flex items-center group mb-4">
+                        <div class="w-12 h-12 logo logo-bg rounded-2xl text-white flex items-center justify-center ml-3">
+                            <i class="fas fa-robot text-xl"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-gray-800 text-xl">المساعد الذكي</span>
+                            <p class="text-xs text-gray-500">للجامعات والطلاب</p>
+                        </div>
+                    </a>
+                    <p class="text-gray-600 leading-relaxed">
+                        منصة ذكية مدعومة بالذكاء الاصطناعي تساعد الطلاب وأعضاء هيئة التدريس في الوصول للمعلومات الأكاديمية بشكل سريع وفعال.
+                    </p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-5">روابط سريعة</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="{{ url_for('main.index') }}" class="text-gray-600 hover:text-primary-600 footer-link">
+                                <i class="fas fa-chevron-left ml-1 text-xs"></i>
+                                <span>الرئيسية</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('main.chat') }}" class="text-gray-600 hover:text-primary-600 footer-link">
+                                <i class="fas fa-chevron-left ml-1 text-xs"></i>
+                                <span>المحادثة</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('main.about') }}" class="text-gray-600 hover:text-primary-600 footer-link">
+                                <i class="fas fa-chevron-left ml-1 text-xs"></i>
+                                <span>عن المشروع</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('admin.index') }}" class="text-gray-600 hover:text-primary-600 footer-link">
+                                <i class="fas fa-chevron-left ml-1 text-xs"></i>
+                                <span>لوحة الإدارة</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-5">تواصل معنا</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center ml-3">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <a href="mailto:info@university-assistant.com" class="text-gray-600 hover:text-primary-600 footer-link">
+                                info@university-assistant.com
+                            </a>
+                        </li>
+                        <li class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center ml-3">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <a href="tel:+966123456789" class="text-gray-600 hover:text-primary-600 footer-link">
+                                +966 12 345 6789
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <!-- Social Media Icons -->
+                    <div class="flex gap-3 mt-6">
+                        <a href="#" class="social-icon w-10 h-10 rounded-full flex items-center justify-center bg-white border border-gray-200 text-gray-600 hover:bg-primary-50 hover:text-primary-600 hover:border-primary-200 transition-all" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 rounded-full flex items-center justify-center bg-white border border-gray-200 text-gray-600 hover:bg-primary-50 hover:text-primary-600 hover:border-primary-200 transition-all" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 rounded-full flex items-center justify-center bg-white border border-gray-200 text-gray-600 hover:bg-primary-50 hover:text-primary-600 hover:border-primary-200 transition-all" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon w-10 h-10 rounded-full flex items-center justify-center bg-white border border-gray-200 text-gray-600 hover:bg-primary-50 hover:text-primary-600 hover:border-primary-200 transition-all" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="border-t border-gray-200 mt-10 pt-6 text-center">
+                <p class="text-gray-600 text-sm">
+                    &copy; {{ now.year }} المساعد الذكي للجامعة. جميع الحقوق محفوظة.
+                </p>
+            </div>
+        </div>
+    </footer>
+    {% endif %}
+    
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dynamic island navbar
+            const navbarIsland = document.getElementById('navbarIsland');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.getElementById('menuIcon');
+            
+            // Scroll effect
+            function updateNavbar() {
+                if (window.scrollY > 20) {
+                    navbarIsland.classList.add('scrolled');
+                } else {
+                    navbarIsland.classList.remove('scrolled');
+                }
+            }
+            
+            // Mobile menu toggle
+            function toggleMobileMenu() {
+                if (mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.remove('open');
+                    document.body.style.overflow = '';
+                } else {
+                    mobileMenu.classList.add('open');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+            
+            // Event listeners
+            window.addEventListener('scroll', updateNavbar);
+            if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            if (closeMenuBtn) closeMenuBtn.addEventListener('click', toggleMobileMenu);
+            
+            // Initial navbar state
+            updateNavbar();
+        });
+    </script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

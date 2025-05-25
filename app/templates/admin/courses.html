@@ -1,0 +1,61 @@
+{% extends "admin/admin_base.html" %}
+
+{% block admin_content %}
+<div class="max-w-6xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold text-primary-700">إدارة المواد الدراسية</h1>
+        <a href="{{ url_for('admin.add_course') }}" class="bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded">إضافة مادة جديدة</a>
+    </div>
+    
+    {% if courses %}
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">كود المادة</th>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">اسم المادة</th>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الساعات المعتمدة</th>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الأستاذ</th>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الفصل الدراسي</th>
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for course in courses %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900">{{ course.code }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ course.name }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ course.credit_hours }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ course.professor.name if course.professor else "غير محدد" }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">{{ course.semester if course.semester else "غير محدد" }}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
+                            <div class="flex space-x-2 rtl:space-x-reverse">
+                                <a href="{{ url_for('admin.edit_course', id=course.id) }}" class="text-primary-600 hover:text-primary-900">تعديل</a>
+                                <form action="{{ url_for('admin.delete_course', id=course.id) }}" method="post" class="inline" onsubmit="return confirm('هل أنت متأكد من حذف هذه المادة؟');">
+                                    <button type="submit" class="text-red-600 hover:text-red-900">حذف</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="bg-white rounded-lg shadow p-6 text-center">
+            <p class="text-gray-600">لا توجد مواد دراسية مسجلة حالياً.</p>
+            <a href="{{ url_for('admin.add_course') }}" class="mt-4 inline-block bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded">إضافة مادة جديدة</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

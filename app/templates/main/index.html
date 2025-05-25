@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}المساعد الذكي للجامعة - الصفحة الرئيسية{% endblock %}
+
+{% block styles %}
+<style>
+    /* Simple hero section with clean gradient */
+    .hero-section {
+        background: linear-gradient(to bottom, #2563eb, #1e40af);
+        min-height: 70vh;
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
+    
+    /* Simple subtle pattern for background */
+    .hero-pattern {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    
+    /* Clean university logo styling */
+    .university-logo {
+        max-width: 150px;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Simple button styling */
+    .btn-primary-simple {
+        background-color: #ffffff;
+        color: #2563eb;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-primary-simple:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .btn-secondary-simple {
+        background-color: transparent;
+        color: #ffffff;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+    }
+    
+    .btn-secondary-simple:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-color: #ffffff;
+    }
+    
+    /* Simple feature card */
+    .feature-card-simple {
+        background-color: #ffffff;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        height: 100%;
+        border-top: 3px solid #2563eb;
+    }
+    
+    .feature-card-simple:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon-simple {
+        width: 50px;
+        height: 50px;
+        background-color: #eff6ff;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        color: #2563eb;
+    }
+    
+    /* Simple step card */
+    .step-card-simple {
+        background-color: #ffffff;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .step-number-simple {
+        background-color: #2563eb;
+        color: #ffffff;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    
+    /* Simple CTA section */
+    .cta-section-simple {
+        background-color: #eff6ff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section - Simple and Clean -->
+<section class="hero-section">
+    <div class="hero-pattern"></div>
+    
+    <div class="container mx-auto px-4 py-16">
+        <div class="flex flex-col md:flex-row items-center">
+            <!-- Left content with logo and text -->
+            <div class="md:w-1/2 text-center md:text-right">
+                <!-- University Logo - Not rounded -->
+                <!-- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3rdEacqbMCw1dnwLY89oMTJvz1kMw5dNhyA&s" 
+                     alt="شعار الجامعة" 
+                     class="university-logo mx-auto md:mr-0 md:ml-auto"> -->
+                
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+                    المساعد الذكي للجامعة
+                </h1>
+                
+                <p class="text-white text-opacity-90 text-lg mb-8 max-w-lg mx-auto md:mr-0 md:ml-auto">
+                    منصة ذكية تستخدم تقنيات الذكاء الاصطناعي للإجابة على استفساراتك
+                    حول الجامعة والمقررات الدراسية بشكل فوري ودقيق
+                </p>
+                
+                <div class="flex flex-wrap gap-4 justify-center md:justify-end">
+                    <a href="{{ url_for('main.chat') }}" class="btn-primary-simple">
+                        <i class="fas fa-comments ml-2"></i>
+                        <span>ابدأ محادثة الآن</span>
+                    </a>
+                    
+                    <a href="{{ url_for('main.about') }}" class="btn-secondary-simple">
+                        <i class="fas fa-info-circle ml-2"></i>
+                        <span>اعرف المزيد</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Right content with simple illustration -->
+            <div class="md:w-1/2 mt-10 md:mt-0">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3rdEacqbMCw1dnwLY89oMTJvz1kMw5dNhyA&s" 
+                     alt="المساعد الذكي للجامعة" 
+                     class="w-full max-w-md mx-auto rounded-lg shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section - Simple and Clean -->
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">كيف يمكن للمساعد الذكي مساعدتك؟</h2>
+            <p class="text-gray-600 max-w-lg mx-auto">يقدم المساعد الذكي مجموعة من المميزات التي تساعدك في الحصول على المعلومات بسرعة وسهولة</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Feature 1 -->
+            <div class="feature-card-simple">
+                <div class="feature-icon-simple">
+                    <i class="fas fa-graduation-cap text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">معلومات المقررات</h3>
+                <p class="text-gray-600">الحصول على معلومات تفصيلية عن المقررات الدراسية والمحتوى والمتطلبات بسهولة</p>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-card-simple">
+                <div class="feature-icon-simple">
+                    <i class="fas fa-user-tie text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">معلومات الأساتذة</h3>
+                <p class="text-gray-600">التعرف على أساتذة المقررات وتخصصاتهم ومواعيد الساعات المكتبية بشكل دقيق</p>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-card-simple">
+                <div class="feature-icon-simple">
+                    <i class="fas fa-calendar-alt text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">مواعيد ومناسبات</h3>
+                <p class="text-gray-600">معرفة مواعيد المحاضرات والاختبارات والمناسبات المهمة في الحرم الجامعي</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section - Simple and Clean -->
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">كيف يعمل المساعد الذكي؟</h2>
+            <p class="text-gray-600 max-w-lg mx-auto">ثلاث خطوات بسيطة للحصول على المعلومات التي تحتاجها</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Step 1 -->
+            <div class="step-card-simple">
+                <div class="step-number-simple">1</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">طرح السؤال</h3>
+                <p class="text-gray-600">أدخل سؤالك في مربع المحادثة بأي صيغة تريدها</p>
+            </div>
+            
+            <!-- Step 2 -->
+            <div class="step-card-simple">
+                <div class="step-number-simple">2</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">معالجة السؤال</h3>
+                <p class="text-gray-600">يقوم النظام بتحليل سؤالك والبحث عن المعلومات المناسبة</p>
+            </div>
+            
+            <!-- Step 3 -->
+            <div class="step-card-simple">
+                <div class="step-number-simple">3</div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">الحصول على إجابة</h3>
+                <p class="text-gray-600">تظهر الإجابة بشكل فوري وبصيغة سهلة الفهم وواضحة</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action - Simple and Clean -->
+<section class="cta-section-simple py-16">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">جاهز للبدء؟</h2>
+        <p class="text-gray-700 max-w-lg mx-auto mb-8">استفد من قوة الذكاء الاصطناعي للحصول على إجابات لجميع استفساراتك الجامعية</p>
+        
+        <a href="{{ url_for('main.chat') }}" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+            <i class="fas fa-comments ml-2"></i>
+            <span>ابدأ محادثة الآن</span>
+        </a>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Simple animation for feature cards on scroll
+        function animateOnScroll() {
+            const cards = document.querySelectorAll('.feature-card-simple, .step-card-simple');
+            
+            cards.forEach(card => {
+                const cardPosition = card.getBoundingClientRect();
+                
+                // Check if card is in viewport
+                if(cardPosition.top < window.innerHeight - 100) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Set initial opacity and transform for animation
+        const cards = document.querySelectorAll('.feature-card-simple, .step-card-simple');
+        cards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        });
+        
+        // Listen for scroll to trigger animations
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    });
+</script>
+{% endblock %}
